@@ -1,0 +1,25 @@
+.container {
+  flex: 1;
+  gap: 20px;
+
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+
+  padding: 0 5%;
+
+  padding-bottom: 20px;
+
+  overflow-y: hidden;
+}
+
+.contentContainer {
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+
+  overflow: auto;
+}
