@@ -6,6 +6,7 @@ import RecoilRootProvider from "@lib/recoilRootProvider";
 import StyledComponentsRegistry from "@lib/registry";
 
 import BottomNavigation from "@components/BottomNavigation";
+import AuthSession from "@lib/AuthSession";
 
 const noto = Noto_Sans_KR({ subsets: ["latin"] });
 
@@ -27,7 +28,7 @@ export default function RootLayout({
       >
         <StyledComponentsRegistry>
           <RecoilRootProvider>
-            {children}
+            <AuthSession>{children}</AuthSession>
             <BottomNavigation />
           </RecoilRootProvider>
         </StyledComponentsRegistry>

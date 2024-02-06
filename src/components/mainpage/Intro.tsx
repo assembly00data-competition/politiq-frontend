@@ -13,6 +13,7 @@ export default function Intro() {
         width={0}
         height={0}
         sizes="100vw"
+        priority
       />
       <Overlay>
         <Title>{"PoiltIQ"}</Title>

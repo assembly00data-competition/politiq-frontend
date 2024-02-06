@@ -1,6 +1,10 @@
-import { useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 
 import styled from "styled-components";
+
+import { signIn, signOut, useSession } from "next-auth/react";
 
 import { FaCircleUser } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
@@ -14,18 +18,38 @@ const Icons = [
 ];
 
 export default function UserInfo() {
-  const [isLogin, _] = useState<boolean>(false);
+  const { data: session } = useSession();
 
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+
+  const handleLogin = () => {
+    signIn("naver");
+  };
+
+  const handleLogout = () => {
+    signOut();
+  };
+
+  useEffect(() => {
+    if (session && session.user) {
+      setIsLogin(true);
+    }
+  }, [session]);
   return (
     <Container>
       <Overview>
         <FaCircleUser size={50} />
         <div style={{ justifyContent: "space-between" }}>
           <p style={{ fontSize: "1.4rem" }}>{"국민 프로듀서"}</p>
-          {/* 로그인 기능 추가 후, 해당 유저의 이름, 이곳에 추가할 것 */}
-          <p style={{ fontSize: "1.2rem", fontWeight: 700, color: "#EC93AB" }}>
-            {isLogin ? <></> : "로그인"}
-          </p>
+          <div
+            style={{ fontSize: "1.2rem", fontWeight: 700, color: "#EC93AB" }}
+          >
+            {isLogin ? (
+              <p onClick={() => handleLogout()}>{session?.user?.name}</p>
+            ) : (
+              <p onClick={() => handleLogin()}>{"로그인"}</p>
+            )}
+          </div>
         </div>
       </Overview>
       <UserMenu>
