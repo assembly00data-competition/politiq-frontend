@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ChangeEvent } from "react";
 
 import styled from "styled-components";
 
 import { MdSend } from "react-icons/md";
+import { questionState } from "@recoil/atoms/questionAtom";
+import { useRecoilState } from "recoil";
+import { chatLogState } from "@recoil/atoms/chatLogAtom";
 
-export default function ChatbotInput() {
+interface ChatbotInputProps {
+  type: string;
+}
+
+export default function ChatbotInput({ type }: ChatbotInputProps) {
   const MIN_HEIGHT = "1.3rem";
+
+  const [question, setQuestion] = useRecoilState(questionState);
+  const [_, setChatLog] = useRecoilState(chatLogState);
 
   const [text, setText] = useState("");
   const [textareaHeight, setTextareaHeight] = useState(MIN_HEIGHT);
@@ -24,6 +34,30 @@ export default function ChatbotInput() {
     e.target.style.height = newHeight;
   };
 
+  const handleSend = async () => {
+    const content = text;
+    setText("");
+
+    setChatLog((prev) => [...prev, { type, sender: "user", content }]);
+
+    const response = await fetch("/api/question", {
+      method: "POST",
+      body: JSON.stringify({ content, type }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const jsonData = await response.json();
+
+    setChatLog((prev) => [...prev, { type, sender: "bot", content: jsonData }]);
+  };
+
+  useEffect(() => {
+    if (question) {
+      setText(question);
+      setQuestion("");
+    }
+  }, [question, setQuestion]);
+
   return (
     <InputContainer>
       <TextInput
@@ -32,7 +66,7 @@ export default function ChatbotInput() {
         onChange={handleChange}
         value={text}
       />
-      <MdSend size={"1.8rem"} fill={"#9D9D9D"} />
+      <MdSend onClick={() => handleSend()} size={"1.8rem"} fill={"#9D9D9D"} />
     </InputContainer>
   );
 }

@@ -1,12 +1,26 @@
+import { questionState } from "@recoil/atoms/questionAtom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
-const recommends = ["재정 이유", "발의 시점", "식품위생법이란?"];
+interface ChatbotRecommendProps {
+  recommends: string[];
+}
 
-export default function ChatbotRecommend() {
+export default function ChatbotRecommend({
+  recommends,
+}: ChatbotRecommendProps) {
+  const [_, setQuestion] = useRecoilState(questionState);
+
+  const handleRecommend = (recommend: string) => {
+    setQuestion(recommend);
+  };
+
   return (
     <RecommendContainer>
       {recommends.map((recommend, index) => (
-        <Recommend key={index}>{recommend}</Recommend>
+        <Recommend key={index} onClick={() => handleRecommend(recommend)}>
+          {recommend}
+        </Recommend>
       ))}
     </RecommendContainer>
   );

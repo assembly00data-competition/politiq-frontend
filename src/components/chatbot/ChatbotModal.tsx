@@ -5,18 +5,20 @@ import styled from "styled-components";
 import Logo from "@components/Logo";
 
 import { IoMdClose } from "react-icons/io";
+import { useRecoilState } from "recoil";
+import { questionState } from "@recoil/atoms/questionAtom";
 
 interface ChatbotModalProps {
+  options: string[];
   setOnModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const options = [
-  "혹시 이 법률안의 기대효과에 대해 알고 싶으신가요?",
-  "혹시 이 법률안 재정에 관여한 기관에 대해 알고싶으신가요?",
-  "홈으로 돌아가기",
-];
+export default function ChatbotModal({
+  options,
+  setOnModal,
+}: ChatbotModalProps) {
+  const [_, setQuestion] = useRecoilState(questionState);
 
-export default function ChatbotModal({ setOnModal }: ChatbotModalProps) {
   const handleModal = () => {
     setOnModal(false);
   };
@@ -24,6 +26,11 @@ export default function ChatbotModal({ setOnModal }: ChatbotModalProps) {
   // 모달 내부 클릭 시 이벤트 버블링을 막는 함수
   const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+  };
+
+  const handleOption = (option: string) => {
+    setOnModal(false);
+    setQuestion(option);
   };
 
   return (
@@ -34,7 +41,7 @@ export default function ChatbotModal({ setOnModal }: ChatbotModalProps) {
       <Logo />
       {options.map((option, index) => (
         <OptionContainer key={index}>
-          <Option>{option}</Option>
+          <Option onClick={() => handleOption(option)}>{option}</Option>
         </OptionContainer>
       ))}
     </Container>

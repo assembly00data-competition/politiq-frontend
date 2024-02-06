@@ -3,6 +3,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  experimental: {
+    serverComponentsExternalPackages: ["pdf-parse"],
+  },
 };
 
 export default nextConfig;

@@ -6,19 +6,35 @@ import BoardSearch from "@components/board/BoardSearch";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+const getDataFromAPI = async (): Promise<MettingRecordInfo[] | undefined> => {
+  try {
+    const response = await fetch("/api/meetingrecord", { method: "POST" });
+    const jsonData = await response.json();
+    return jsonData;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default function Summary() {
-  const [boardContents, setboardContents] = useState<SummaryPost[]>();
+  const [boardContents, setBoardContents] = useState<SummaryPost[]>();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await getDataFromAPI();
-  //     setboardContents(
-  //       response?.map((info) => ({ title: info.HG_NM, content: info }))
-  //     );
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getDataFromAPI();
 
-  //   fetchData();
-  // }, []);
+      setBoardContents(
+        response!.map((summary) => ({
+          title: summary.TITLE,
+          content: summary.SUB_NAME,
+          pdfUrl: summary.PDF_LINK_URL,
+        }))
+      );
+      console.log(response);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Container>
@@ -30,9 +46,9 @@ export default function Summary() {
           boardContents.map((boardContent, index) => (
             <BoardContent
               key={index}
-              id={String(index + 1)}
+              id={encodeURIComponent(boardContent.pdfUrl)}
               title={boardContent.title}
-              content={boardContent.content.summary}
+              content={boardContent.content}
             />
           ))}
       </BoardContainer>

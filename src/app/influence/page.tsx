@@ -10,6 +10,13 @@ import ChatbotInput from "@components/chatbot/ChatbotInput";
 import ChatbotRecommend from "@components/chatbot/ChatbotRecommend";
 import ChatbotModal from "@components/chatbot/ChatbotModal";
 
+const options = [
+  "최근 개정된 주택임대차보호법의 주요 변경 사항은 무엇인가요?",
+  "개인정보 보호법에서 정의하는 '개인정보'의 범위에는 어떤 것들이 포함되나요?",
+  "프리랜서가 지켜야 할 세금 관련 법률은 어떤 것들이 있나요?",
+];
+const recommends = ["재정 이유", "발의 시점", "식품위생법이란?"];
+
 export default function Influence() {
   const [onModal, setOnModal] = useState<boolean>(true);
 
@@ -17,14 +24,14 @@ export default function Influence() {
     <Container onClick={() => setOnModal(false)}>
       <ChatbotHeader title={"내 한 표의 기대효과"} />
       {onModal ? (
-        <ChatbotModal setOnModal={setOnModal} />
+        <ChatbotModal options={options} setOnModal={setOnModal} />
       ) : (
         <>
-          <ChatbotContainer />
-          <ChatbotRecommend />
+          <ChatbotContainer type={"influence"} />
+          <ChatbotRecommend recommends={recommends} />
         </>
       )}
-      <ChatbotInput />
+      <ChatbotInput type={"influence"} />
     </Container>
   );
 }

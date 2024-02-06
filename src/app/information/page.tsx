@@ -58,12 +58,12 @@ const getDataFromAPI = async (): Promise<AssemblyInfo[] | undefined> => {
 };
 
 export default function Infomation() {
-  const [boardContents, setboardContents] = useState<InformationPost[]>();
+  const [boardContents, setBoardContents] = useState<InformationPost[]>();
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await getDataFromAPI();
-      setboardContents(
+      setBoardContents(
         response?.map((info) => ({ title: info.HG_NM, content: info }))
       );
     };

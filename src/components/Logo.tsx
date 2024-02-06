@@ -14,6 +14,7 @@ export default function Logo() {
 }
 
 const Container = styled.div`
+  flex-shrink: 0;
   justify-content: center;
   align-items: center;
 
