@@ -2,7 +2,7 @@ const questionToChatbot = async (question: string, type: string) => {
   const server_url =
     type === "recommend"
       ? "http://165.246.121.115:5000"
-      : "http://34.146.74.81:57481";
+      : "http://35.243.117.147:50716";
 
   const response = await fetch(server_url, {
     method: "POST",
