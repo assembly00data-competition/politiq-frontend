@@ -11,9 +11,9 @@ import ChatbotRecommend from "@components/chatbot/ChatbotRecommend";
 import ChatbotModal from "@components/chatbot/ChatbotModal";
 
 const options = [
-  "최근 개정된 주택임대차보호법의 주요 변경 사항은 무엇인가요?",
-  "개인정보 보호법에서 정의하는 '개인정보'의 범위에는 어떤 것들이 포함되나요?",
-  "프리랜서가 지켜야 할 세금 관련 법률은 어떤 것들이 있나요?",
+  "안녕하세요 저는 보건의료 관련 종사자입니다. 제게 추천해줄만한 국회의원이나 위원회가 있을까요?",
+  "자동차와 관련된 법안이 있는 지 또 이 법안이 누구와 연결 되어 있는 지 알고 싶습니다 혹시 누구에게 물어보면 좋을까요?",
+  "식품산업의 건전성과 식품 소비자의 이익과 보호에 기여해 줄 수 있는 법안에 대해 알려주세요",
 ];
 const recommends = ["재정 이유", "발의 시점", "식품위생법이란?"];
 

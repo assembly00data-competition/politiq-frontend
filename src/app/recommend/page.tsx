@@ -10,9 +10,9 @@ import ChatbotModal from "@components/chatbot/ChatbotModal";
 import ChatbotRecommend from "@components/chatbot/ChatbotRecommend";
 
 const options = [
-  "최근 개정된 주택임대차보호법의 주요 변경 사항은 무엇인가요?",
-  "개인정보 보호법에서 정의하는 '개인정보'의 범위에는 어떤 것들이 포함되나요?",
-  "프리랜서가 지켜야 할 세금 관련 법률은 어떤 것들이 있나요?",
+  "안녕하세요 저는 보건의료 관련 종사자입니다. 제게 추천해줄만한 국회의원이나 위원회가 있을까요?",
+  "자동차와 관련된 세미나를 주관하는 곳이 있을까요? 또 어느기관과 연결 되어 있는 지 알고 싶습니다 혹시 누구에게 물어보면 좋을까요?",
+  "과학에 관심이 많은 정치인을 알고싶어요!",
 ];
 const recommends = ["재정 이유", "발의 시점", "식품위생법이란?"];
 
