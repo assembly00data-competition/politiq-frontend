@@ -16,7 +16,7 @@ export default function ChatbotInput({ type }: ChatbotInputProps) {
   const MIN_HEIGHT = "1.3rem";
 
   const [question, setQuestion] = useRecoilState(questionState);
-  const [_, setChatLog] = useRecoilState(chatLogState);
+  const [chatLog, setChatLog] = useRecoilState(chatLogState);
 
   const [text, setText] = useState("");
   const [textareaHeight, setTextareaHeight] = useState(MIN_HEIGHT);
@@ -40,15 +40,40 @@ export default function ChatbotInput({ type }: ChatbotInputProps) {
 
     setChatLog((prev) => [...prev, { type, sender: "user", content }]);
 
-    const response = await fetch("/api/question", {
-      method: "POST",
-      body: JSON.stringify({ content, type }),
-      headers: { "Content-Type": "application/json" },
-    });
+    if (content.match("기대효과")) {
+      const response = await fetch("/api/question", {
+        method: "POST",
+        body: JSON.stringify({
+          content,
+          type,
+          effect: chatLog[chatLog.length - 1],
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    const jsonData = await response.json();
+      const jsonData = await response.json();
 
-    setChatLog((prev) => [...prev, { type, sender: "bot", content: jsonData }]);
+      setChatLog((prev) => [
+        ...prev,
+        { type, sender: "bot", content: jsonData },
+      ]);
+    } else {
+      const response = await fetch("/api/question", {
+        method: "POST",
+        body: JSON.stringify({
+          content,
+          type,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const jsonData = await response.json();
+
+      setChatLog((prev) => [
+        ...prev,
+        { type, sender: "bot", content: jsonData },
+      ]);
+    }
   };
 
   useEffect(() => {
