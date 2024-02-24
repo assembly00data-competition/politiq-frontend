@@ -40,7 +40,7 @@ const readPdfText = async (filePath: string) => {
   try {
     const data = await pdfParse(dataBuffer);
     // return data.text; // 추출된 텍스트 내용 전체 반환
-    return data.text.split("\0", 100); // 추출된 텍스트 내용 일부 반환
+    return data.text.split("\n", 300); // 추출된 텍스트 내용 일부 반환
   } catch (error) {
     console.error("PDF 파일 읽기 실패:", error);
   }
