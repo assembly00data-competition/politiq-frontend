@@ -14,9 +14,20 @@ interface InfomationPostProps {
 }
 
 const comments = [
-  "참 좋은 법률안 같네요~! 최고 최고 이 국회의원을 추천합니다",
-  "이런 세미나를 참석했군요, 내가 관심있는 정치인으로 등록해야겠어요.",
-  "내가 뽑은 사람인데 내 한 표가 참 의미있게 쓰이네 기대효과 잘 보고가요",
+  {
+    name: "이민선",
+    comment: "이 당 국회의원 중에서 가장 국민을 생각하는 의원님이세요.",
+  },
+  {
+    name: "정봉기",
+    comment:
+      "이런 세미나를 참석했군요, 내가 관심있는 정치인으로 등록해야겠어요.",
+  },
+  {
+    name: "정연한",
+    comment:
+      "내가 뽑은 사람인데 내 한 표가 참 의미있게 쓰이네 기대효과 잘 보고가요",
+  },
 ];
 
 const getDataFromAPI = async (
@@ -24,7 +35,7 @@ const getDataFromAPI = async (
 ): Promise<AssemblyInfo | undefined> => {
   const baseurl =
     "https://open.assembly.go.kr/portal/openapi/nwvrqwxyaytdsfvhu";
-  const key = "a7f9eda667074ea296511bb8436268e3";
+  const key = process.env.ASSEMBLY_KEY!;
   const params = {
     // 필요한 query params를 {} 형태에 담아준다.
     key,
@@ -116,12 +127,13 @@ export default function InfomationPost({ params }: InfomationPostProps) {
       </InfoContainer>
       {comments.map((comment, index) => (
         <CommentContainer key={index}>
-          <Profile />
           <div style={{ flexShrink: 0, gap: 3 }}>
             <p>{"국민프로듀서"}</p>
-            <p style={{ color: "#EC93AB", fontSize: "1.2rem" }}>{"사용자"}</p>
+            <p style={{ color: "#EC93AB", fontSize: "1.2rem" }}>
+              {comment.name}
+            </p>
           </div>
-          <p>{comment}</p>
+          <p>{comment.comment}</p>
         </CommentContainer>
       ))}
     </Container>
@@ -189,15 +201,4 @@ const CommentContainer = styled.div`
   border-radius: 20px;
 
   padding: 15px;
-`;
-
-const Profile = styled.div`
-  flex-shrink: 0;
-
-  width: 50px;
-  height: 50px;
-
-  background-color: #fafafa;
-
-  border-radius: 50%;
 `;

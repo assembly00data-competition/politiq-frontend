@@ -1,7 +1,7 @@
 const fetchMeetingRecordUrl = async (year: string) => {
   const baseurl =
     "https://open.assembly.go.kr/portal/openapi/nzbyfwhwaoanttzje";
-  const key = "a7f9eda667074ea296511bb8436268e3";
+  const key = process.env.ASSEMBLY_KEY!;
   const params = {
     // 필요한 query params를 {} 형태에 담아준다.
     key,

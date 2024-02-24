@@ -14,9 +14,21 @@ interface SummaryPostProps {
 }
 
 const comments = [
-  "정치인들이 실제로 국민의 이익을 위해 논의하는 모습을 보니 희망적입니다. 이런 모습이 계속되길 바랍니다.",
-  "또 다시 끝없는 논쟁과 정쟁만 벌어지고, 실질적인 해결책은 나오지 않는군요. 정치가 변해야 하는데...",
-  "이번 본회의에서도 A당은 실망스러운 태도를 보이네요. 변화가 필요합니다.",
+  {
+    name: "이민선",
+    comment:
+      "정치인들이 실제로 국민의 이익을 위해 논의하는 모습을 보니 희망적입니다. 이런 모습이 계속되길 바랍니다.",
+  },
+  {
+    name: "정봉기",
+    comment:
+      "또 다시 끝없는 논쟁과 정쟁만 벌어지고, 실질적인 해결책은 나오지 않는군요. 정치가 변해야 하는데...",
+  },
+  {
+    name: "정연한",
+    comment:
+      "이번 본회의에서도 A당은 실망스러운 태도를 보이네요. 변화가 필요합니다.",
+  },
 ];
 
 export default function SummaryPost({ params }: SummaryPostProps) {
@@ -48,15 +60,7 @@ export default function SummaryPost({ params }: SummaryPostProps) {
     <Container>
       <BoardHeader title={"지난 회의록 2분 컷 요약"} />
       <InfoContainer>
-        {/* <Title>{post.title}</Title> */}
-        {/* <hr /> */}
-        {/* {Object.values(post.content).map((content, index) => (
-          <ContentContainer key={index}>
-            <p>{content}</p>
-          </ContentContainer>
-        ))} */}
-
-        <div>{post}</div>
+        <PostContainer>{post}</PostContainer>
         <ButtonContainer>
           <IoMdHeartEmpty size={"1.6rem"} />
           <MdOutlineChat size={"1.6rem"} />
@@ -65,12 +69,14 @@ export default function SummaryPost({ params }: SummaryPostProps) {
       </InfoContainer>
       {comments.map((comment, index) => (
         <CommentContainer key={index}>
-          <Profile />
+          {/* <Profile /> */}
           <div style={{ flexShrink: 0, gap: 3 }}>
             <p>{"국민프로듀서"}</p>
-            <p style={{ color: "#EC93AB", fontSize: "1.2rem" }}>{"사용자"}</p>
+            <p style={{ color: "#EC93AB", fontSize: "1.2rem" }}>
+              {comment.name}
+            </p>
           </div>
-          <p>{comment}</p>
+          <p>{comment.comment}</p>
         </CommentContainer>
       ))}
     </Container>
@@ -109,12 +115,8 @@ const InfoContainer = styled.div`
   overflow: auto;
 `;
 
-const Title = styled.p`
-  font-size: 1.6rem;
-`;
-
-const ContentContainer = styled.div`
-  flex-direction: row;
+const PostContainer = styled.div`
+  line-height: 1.4rem;
 `;
 
 const ButtonContainer = styled.div`
@@ -138,15 +140,4 @@ const CommentContainer = styled.div`
   border-radius: 20px;
 
   padding: 15px;
-`;
-
-const Profile = styled.div`
-  flex-shrink: 0;
-
-  width: 50px;
-  height: 50px;
-
-  background-color: #fafafa;
-
-  border-radius: 50%;
 `;
