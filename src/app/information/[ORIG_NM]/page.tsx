@@ -21,12 +21,12 @@ const comments = [
   {
     name: "정봉기",
     comment:
-      "이런 세미나를 참석했군요, 내가 관심있는 정치인으로 등록해야겠어요.",
+      "이 위원회에 속해있는 의원님이군요, 내가 관심있는 정치인으로 등록해야겠어요.",
   },
   {
     name: "정연한",
     comment:
-      "내가 뽑은 사람인데 내 한 표가 참 의미있게 쓰이네 기대효과 잘 보고가요",
+      "내가 뽑은 사람인데, 당선되어 다행이에요. 국민의 뜻을 잘 받들기를 바랍니다.",
   },
 ];
 
@@ -35,7 +35,7 @@ const getDataFromAPI = async (
 ): Promise<AssemblyInfo | undefined> => {
   const baseurl =
     "https://open.assembly.go.kr/portal/openapi/nwvrqwxyaytdsfvhu";
-  const key = process.env.ASSEMBLY_KEY!;
+  const key = process.env.NEXT_PUBLIC_ASSEMBLY_KEY!;
   const params = {
     // 필요한 query params를 {} 형태에 담아준다.
     key,

@@ -6,7 +6,6 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
 
 const run = async (pdfText: string) => {
-  // For text-only input, use the gemini-pro model
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
   const prompt = "\n이 앞의 내용들을 요약해줄래?";

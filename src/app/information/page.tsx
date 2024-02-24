@@ -10,7 +10,8 @@ import BoardSearch from "@components/board/BoardSearch";
 const getDataFromAPI = async (): Promise<AssemblyInfo[] | undefined> => {
   const baseurl =
     "https://open.assembly.go.kr/portal/openapi/nwvrqwxyaytdsfvhu";
-  const key = process.env.ASSEMBLY_KEY!;
+
+  const key = process.env.NEXT_PUBLIC_ASSEMBLY_KEY!;
   const params = {
     // 필요한 query params를 {} 형태에 담아준다.
     key,
