@@ -25,11 +25,12 @@ const handler = NextAuth({
         token.accessToken = account.accessToken;
       }
       if (profile) {
-        token.id = profile.response.id;
-        token.name = profile.response.name;
-        token.age = profile.response.age;
-        token.email = profile.response.email;
-        token.gender = profile.response.gender;
+        const customProfile = profile as any; // 또는 보다 구체적인 타입으로 단언
+        token.id = customProfile.response?.id;
+        token.name = customProfile.response?.name;
+        token.age = customProfile.response?.age;
+        token.email = customProfile.response?.email;
+        token.gender = customProfile.response?.gender;
       }
       return token;
     },

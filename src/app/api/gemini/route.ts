@@ -40,7 +40,7 @@ const readPdfText = async (filePath: string) => {
   try {
     const data = await pdfParse(dataBuffer);
     // return data.text; // 추출된 텍스트 내용 전체 반환
-    return data.text.split(0, 100); // 추출된 텍스트 내용 일부 반환
+    return data.text.split("\0", 100); // 추출된 텍스트 내용 일부 반환
   } catch (error) {
     console.error("PDF 파일 읽기 실패:", error);
   }
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
     await fetchMeetingRecord(pdfUrl);
 
     // PDF에서 텍스트 추출
-    const pdfText = await readPdfText(filePath);
+    const pdfText = (await readPdfText(filePath)) as any;
 
     const finalResult = await run(pdfText!);
 
